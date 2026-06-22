@@ -1,14 +1,12 @@
-#!/usr/bin/env python3
-
 import contextlib
 import json
 import os
-import vobject
 
-from radicale import pathutils
-from radicale import item as radicale_item
 import radicale.storage.multifilesystem as storage
+import vobject
 from libdecsync import Decsync
+from radicale import item as radicale_item
+from radicale import pathutils
 
 
 def _get_attributes_from_path(path):
@@ -203,11 +201,8 @@ class Storage(storage.Storage):
                     child_path = "/%s/%s-%s/" % (username, sync_type, collection)
                     if pathutils.strip_path(child_path) in known_paths:
                         continue
-                    if (
-                        Decsync.get_static_info(
-                            self.decsync_dir, sync_type, collection, "deleted"
-                        )
-                        == True
+                    if Decsync.get_static_info(
+                        self.decsync_dir, sync_type, collection, "deleted"
                     ):
                         continue
 
@@ -224,7 +219,7 @@ class Storage(storage.Storage):
                             props["C:supported-calendar-component-set"] = "VJOURNAL"
                         else:
                             raise RuntimeError("Unknown sync type " + sync_type)
-                    child = super().create_collection(child_path, props=props)
+                    child = super().create_collection(child_path, props=props)[0]
                     child.decsync.init_stored_entries()
                     child.decsync.execute_stored_entries_for_path_exact(["info"], child)
                     child.decsync.execute_stored_entries_for_path_prefix(
@@ -285,6 +280,6 @@ class Storage(storage.Storage):
         col = super().create_collection(path, None, props)
         if items is not None:
             for item in items:
-                href = col.get_href(item.uid)
-                col.upload(href, item)
+                href = col[0].get_href(item.uid)
+                col[0].upload(href, item)
         return col

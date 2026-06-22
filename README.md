@@ -2,7 +2,7 @@
 
 Radicale DecSync is an [Radicale](https://radicale.org) storage plugin which adds synchronization of contacts and calendars using [DecSync](https://github.com/39aldo39/DecSync). This allows you to use DecSync on any CalDAV/CardDAV compatible client like [Thunderbird](https://thunderbird.net). To start synchronizing, all you have to do is synchronize the DecSync directory (by default `~/.local/share/decsync`), using for example [Syncthing](https://syncthing.net). It works on both Linux and Windows.
 
-**Works with Radicale 3.6.1 but I think it's magic...**
+**Works with Radicale 3.7.4**
 
 ## Configuration
 
@@ -17,10 +17,10 @@ decsync_dir = ~/.local/share/decsync
 
 You may want to adjust the `filesystem_folder` or `decsync_dir`. The `filesystem_folder` denotes the directory in which Radicale stores its files, its location is not very important. The `decsync_dir` denotes the DecSync directory, i.e. the directory you need to synchronize with other devices.
 
-Then, to launch the Radicale server, execute
+Then, to launch the Radicale server, execute (where "." is root of this repo)
 
 ```
-python3 -m radicale --config "~/.config/radicale/config"
+nix run . -- --config ~/.config/radicale/config
 ```
 
 When the server is launched, you can configure it at [localhost:5232](http://localhost:5232). By default, any username and password is accepted, which should be fine as long as you do not make the server remotely accessible. For more configuration options, see the Radicale's [documentation](https://radicale.org/3.0.html#documentation) page.

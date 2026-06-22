@@ -1,0 +1,35 @@
+[project]
+name = "radicale-storage-decsync"
+version = "2.3.0"
+description = "DecSync storage plugin for Radicale"
+keywords = ["decsync", "radicale"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Intended Audience :: End Users/Desktop",
+]
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE.txt"]
+readme = "README.md"
+authors = [
+ { name = "Aldo Gunsing", email = "dev@aldogunsing.nl" }
+]
+maintainers = [
+  { name = "Xander (dxvxlopxr)", email = "" }
+]
+requires-python = ">=3.14"
+dependencies = ["radicale>=3", "libdecsync>=2.0.0"]
+
+[project.urls]
+Original = "https://github.com/39aldo39/Radicale-DecSync"
+Current = "https://github.com/dxvxlopxr/Radicale-DecSync"
+
+[build-system]
+requires = ["uv_build >= 0.10, < 0.12"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15",
+]
