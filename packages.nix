@@ -40,11 +40,14 @@ let
       setuptools
     ];
     postFixup = ''
-      patchelf --add-needed libcrypt.so.1 \
-        --add-rpath ${pkgs.libxcrypt-legacy}/lib \
-        $out/lib/python3.13/site-packages/libdecsync/libs/libdecsync_amd64.so
+      find $out/lib -name 'libdecsync_*.so' | while read f; do
+        patchelf --add-needed libcrypt.so.1 \
+          --add-rpath ${pkgs.libxcrypt-legacy}/lib \
+          "$f"
+      done
     '';
     nativeBuildInputs = [ pkgs.patchelf ];
+    buildInputs = [ pkgs.libxcrypt-legacy ];
     doCheck = false;
   };
   radicale-decsync = pkgs.python3Packages.buildPythonPackage {
